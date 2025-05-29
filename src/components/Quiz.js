@@ -79,16 +79,171 @@ const questionGraph = {
     id: "q9",
     question: "Superb! Do you want to watch a movie?",
     options: [
-      { text: "Yes", next: "q11", score: 5 },
-      { text: "No", next: "q11", score: -5 },
+      { text: "Yes", next: "q01", score: 5 },
+      { text: "No", next: "q01", score: -5 },
     ],
   },
   q10: {
     id: "q10",
     question: "What happened .. wanna rest?",
     options: [
-      { text: "Yes", next: "q11", score: 5 },
-      { text: "No", next: "q11", score: -5 },
+      { text: "Yes", next: "q01", score: 5 },
+      { text: "No", next: "q01", score: -5 },
+    ],
+  },
+  q01: {
+    id: "q01",
+    question: "You walk into a room with strangers. What do you do first?",
+    options: [
+      {
+        text: "Scan for a friendly face & approach 🔍",
+        next: "q102",
+        score: 1,
+      },
+      { text: "Stick to the wall silently 🧱", next: "q103", score: -1 },
+      { text: "Own the room with your energy 🔥", next: "q104", score: 1.5 },
+      { text: "Head to the snacks corner 🍿", next: "q105", score: 0.5 },
+    ],
+  },
+  q102: {
+    id: "q102",
+    question: "",
+    options: [
+      { text: "not always this person", next: "qa", score: -4 },
+      {
+        text: "absolutely !! if I found we'll own the room together",
+        next: "qa",
+        score: 4,
+      },
+      {
+        text: "depends on mood ,I mean , after passing a simple smile ",
+        next: "qa",
+        score: -2,
+      },
+      {
+        text: "I 'll rather approach to some stranger then ",
+        next: "qa",
+        score: 1,
+      },
+    ],
+  },
+  q103: {
+    id: "q103",
+    question: "Then What will you do in your solitude against wall ?",
+    options: [
+      {
+        text: "Will Stare everyone , wasting their energies ",
+        next: "qa",
+        score: -17,
+      },
+      {
+        text: "I'll surf my mobile simply",
+        next: "qa",
+        score: 1,
+      },
+      {
+        text: "Will think how to settle atleast the next hour of the day ",
+        next: "qa",
+        score: 3,
+      },
+      {
+        text: "Will call someone to come and pick me up",
+        next: "qa",
+        score: 0,
+      },
+    ],
+  },
+  q104: {
+    id: "q104",
+    question:
+      "Superb !! Your energy will surely warm up the room .. with whom do you think your energy will resonate?",
+    options: [
+      {
+        text: "Humming Bird",
+        image: "/hummy.jpg",
+        next: "qa",
+        score: 4,
+      },
+      {
+        text: "Border Collie",
+        image: "/bordie.jpg",
+        next: "qa",
+        score: 3,
+      },
+      {
+        text: "Squirrel",
+        image: "/squi.jpg",
+        next: "qa",
+        score: 2,
+      },
+      {
+        text: "Nope I am the only one with this energy",
+        next: "qa",
+        score: 5,
+      },
+    ],
+  },
+  q105: {
+    id: "q105",
+    question: "No issue ! You must be hungry ..what u wanna have ?",
+    options: [
+      {
+        text: "Ice Cream 🍦",
+        next: "qa",
+        score: 2,
+      },
+      {
+        text: "Popcorn 🍿",
+        next: "qa",
+        score: 1,
+      },
+      {
+        text: "Instant Noodles 🍜",
+        next: "qa",
+        score: -1,
+      },
+      {
+        text: "Dark Chocolate 🍫",
+        next: "qa",
+        score: -2,
+      },
+    ],
+  },
+  qa: {
+    id: "qa",
+    question:
+      "If your mood right now was a weather forecast, what would it be?",
+    options: [
+      {
+        text: "Sunny with a chance of rainbows 🌈",
+        next: "q11", // Directs to final color question
+        score: 15,
+        image: "/rainbow.jpg",
+      },
+      {
+        text: "Thunderstorm with lightning ⚡",
+        next: "q11",
+        score: -15,
+        image: "/thunderstorm.jpg",
+      },
+      {
+        text: "Foggy... can't see past my coffee cup ☕",
+        next: "q11",
+        score: -8,
+        image: "/foggy.jpg",
+      },
+      {
+        text: "A perfect breeze with dancing leaves 🍃",
+        next: "q11",
+        score: 10,
+        image: "/breeze.jpg",
+      },
+      {
+        text: "Meteor shower of excitement! ☄️",
+        next: "q11",
+        score: 20,
+        image: "/meteor.jpg",
+      },
     ],
   },
   q11: {
@@ -228,9 +383,19 @@ const Quiz = () => {
       " Deeply moving and inspiring. Heals with empathy, kindness, and understanding — hits you softly and uplifts.";
     movie = "/tare.jpg";
    }}
+   if(currentId=='q102' &&favouritePerson){
+    currentQuestion.question=`If you'll found ${favouritePerson} there then will you both stay togethher in that room ?`
+   }
   return (
     <div className="quiz-container" id="quiz-result">
-      <h2>{currentQuestion.question}</h2>
+      <div className="question-box">
+        {currentId === "q9" && (
+          <div>
+            <img src={movie} alt="Movie Poster" className="movie-poster" />
+          </div>
+        )}
+        <h2>{currentQuestion.question}</h2>
+      </div>
 
       {/* Song player only appears during q2 */}
       {currentId === "q2" && songs[moodAnswer] && (
@@ -241,11 +406,7 @@ const Quiz = () => {
           </audio>
         </div>
       )}
-      {currentId === "q9" && (
-        <div>
-          <img src={movie} alt="Movie Poster" className="movie-poster" />
-        </div>
-      )}
+
       {currentId === "q4" && (
         <div>
           <input
@@ -269,6 +430,9 @@ const Quiz = () => {
 
       {currentQuestion.options.map((opt, index) => (
         <button key={index} onClick={() => handleAnswer(opt)}>
+          {opt.image && (
+            <img src={opt.image} alt={opt.text} className="option-image" />
+          )}
           {opt.text}
         </button>
       ))}

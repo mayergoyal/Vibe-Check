@@ -64,7 +64,7 @@ h2{
 }
 
 .routebox {
-  height: 80vh;
+  height: 100% fit-content;
   width: 100%;
   overflow-y: auto;
    /* Optional: if your content scrolls */

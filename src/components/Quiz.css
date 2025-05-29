@@ -4,8 +4,8 @@
     border: 2px solid #ccc;
     border-radius: 8px;
     text-align: center;
-    font-size: 2rem;
-    height:80%;
+    font-size: 1.68rem;
+    height:100%;
     background-color: rgb(25, 109, 101);
     opacity:.8;
     margin:20px;
@@ -30,13 +30,15 @@
   .movie-poster{
     width: 400px;
     height: 400px;
-    opacity: .5;
+    opacity: 1;
+    border:4px solid black;
     border-radius: 10px;
     margin: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease-in-out;
     position: relative;
-    transform:translateY(-450px)
+    display: inline-block;
+    overflow: hidden;
     
   }
   /* Score Meter Styles */
@@ -123,7 +125,7 @@
     background: white;
     color: black;
     width: 100%;
-    font-size: 2rem;
+    font-size: 3rem;
   }
   
   .user-info {
@@ -140,4 +142,22 @@
     border-radius: 50%;
     margin-right: 20px;
     object-fit: cover;
+  }
+  .option-image{
+    border-radius: 100%;
+    width:120px;
+    height:120px;
+    margin: 10px;
+    border: 1px solid black
+  }
+  .question-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding:0;
+    margin:0;
+    border-radius: 11.560px;
+    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
