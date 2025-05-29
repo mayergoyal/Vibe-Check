@@ -77,7 +77,7 @@ const questionGraph = {
   },
   q9: {
     id: "q9",
-    question: "Superb! Do you want to watch a movie?",
+    question: "",
     options: [
       { text: "Yes", next: "q01", score: 5 },
       { text: "No", next: "q01", score: -5 },
@@ -364,23 +364,23 @@ const Quiz = () => {
    }
    if(currentId==='q9'){
    if(moodAnswer=="Happy"){
-    currentQuestion.question +=
-      " Since you were already feeling happy . A lively blend of fun, dreams, love, and growth — keeps the good mood going strong.";
+    currentQuestion.question =
+      "  Superb! Do you want to watch a movie? Since you were already feeling happy . A lively blend of fun, dreams, love, and growth — keeps the good mood going strong.";
     movie = "/yjhd.jpg";
    }
    else if (moodAnswer=="extremely happy"){
-    currentQuestion.question +=
-      " Wholesome, artistic, and filled with heart. Celebrates life in its purest form — just like extreme happiness.";
+    currentQuestion.question =
+      "  Superb! Do you want to watch a movie? Wholesome, artistic, and filled with heart. Celebrates life in its purest form — just like extreme happiness.";
     movie = "/barfi.jpg";
    }
    else if (moodAnswer=="sad"){
-    currentQuestion.question +=
-      " Your saddness will sway away with a soothing journey of emotional healing with relatable moments — a soft, supportive nudge toward hope.";
+    currentQuestion.question =
+      " Superb! Do you want to watch a movie? Your saddness will sway away with a soothing journey of emotional healing with relatable moments — a soft, supportive nudge toward hope.";
     movie = "/dzing.jpg";
    }
    else if (moodAnswer=="extremely sad"){
-    currentQuestion.question +=
-      " Deeply moving and inspiring. Heals with empathy, kindness, and understanding — hits you softly and uplifts.";
+    currentQuestion.question =
+      "Superb! Do you want to watch a movie?  Deeply moving and inspiring. Heals with empathy, kindness, and understanding — hits you softly and uplifts.";
     movie = "/tare.jpg";
    }}
    if(currentId=='q102' &&favouritePerson){
