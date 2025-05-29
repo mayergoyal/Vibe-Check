@@ -16,18 +16,18 @@ const questionGraph = {
     id: "q1",
     question: "How are you feeling today?",
     options: [
-      { text: "Happy", next: "q2", score: 25 },
-      { text: "extremely happy", next: "q2", score: 35 },
-      { text: "sad", next: "q2", score: -25 },
-      { text: "extremely sad", next: "q2", score: -35 },
+      { text: "Happy", next: "q2", score: 12 },
+      { text: "extremely happy", next: "q2", score: 18 },
+      { text: "sad", next: "q2", score: -12 },
+      { text: "extremely sad", next: "q2", score: -18 },
     ],
   },
   q2: {
     id: "q2",
     question: "Does this song define your mood?",
     options: [
-      { text: "Yes", next: "q3", score: 25 },
-      { text: "No", next: "q3", score: -25 },
+      { text: "Yes", next: "q3", score: 12 },
+      { text: "No", next: "q3", score: -12 },
     ],
   },
   q3: {
@@ -45,10 +45,10 @@ const questionGraph = {
     id: "q5",
     question: "",
     options: [
-      { text: "Instantly say yes ", next: "q6", score: 30 },
-      { text: "think before 10 minutes before reply ", next: "q6", score: 20 },
-      { text: "give an excuse", next: "q6", score: -20 },
-      { text: "Leave them on read ", next: "q6", score: -30 },
+      { text: "Instantly say yes", next: "q6", score: 18 },
+      { text: "think before 10 minutes before reply", next: "q6", score: 10 },
+      { text: "give an excuse", next: "q6", score: -10 },
+      { text: "Leave them on read", next: "q6", score: -18 },
     ],
   },
   q6: {
@@ -60,25 +60,24 @@ const questionGraph = {
     id: "q7",
     question: "",
     options: [
-      { text: "Will instantly order all & will eat", next: "q8", score: 57 },
-      { text: "Store for later", next: "q8", score: 27 },
-
-      { text: "Ignore the offer", next: "q8", score: -57 },
+      { text: "Will instantly order all & will eat", next: "q8", score: 20 },
+      { text: "Store for later", next: "q8", score: 10 },
+      { text: "Ignore the offer", next: "q8", score: -20 },
     ],
   },
   q8: {
     id: "q8",
-    question: "How will you describe your energy today ?",
+    question: "How will you describe your energy today?",
     options: [
-      { text: "Hyperactive ", next: "q9", score: 45 },
-      { text: "Balanced", next: "q9", score: 25 },
-      { text: "Tired", next: "q10", score: -25 },
-      { text: "Emotionally Drained", next: "q10", score: -45 },
+      { text: "Hyperactive", next: "q9", score: 18 },
+      { text: "Balanced", next: "q9", score: 10 },
+      { text: "Tired", next: "q10", score: -10 },
+      { text: "Emotionally Drained", next: "q10", score: -18 },
     ],
   },
   q9: {
     id: "q9",
-    question: " Superb ! Do you want to watch a movie ?",
+    question: "Superb! Do you want to watch a movie?",
     options: [
       { text: "Yes", next: "q11", score: 5 },
       { text: "No", next: "q11", score: -5 },
@@ -86,24 +85,25 @@ const questionGraph = {
   },
   q10: {
     id: "q10",
-    question: " What happen .. wanna rest?",
+    question: "What happened .. wanna rest?",
     options: [
       { text: "Yes", next: "q11", score: 5 },
-      { text: "No", next: "q11", score: -8 },
+      { text: "No", next: "q11", score: -5 },
     ],
   },
   q11: {
     id: "q11",
     question: "Final question ... choose the color",
     options: [
-      { text: "Yellow", next: null, score: 12 },
-      { text: "Blue", next: null, score: 6 },
-      { text: "Red", next: null, score: -6 },
-      { text: "Black", next: null, score: -12 },
+      { text: "Yellow", next: null, score: 7 },
+      { text: "Blue", next: null, score: 4 },
+      { text: "Red", next: null, score: -4 },
+      { text: "Black", next: null, score: -7 },
       { text: "Restart Quiz", next: "q1", score: 0 },
     ],
   },
 };
+  
 
 const Quiz = () => {
   const [currentId, setCurrentId] = useState("q1");
@@ -114,16 +114,66 @@ const Quiz = () => {
   const [score, setScore] = useState(0);
     let movie = "/default.jpg"; // Default movie poster
     const handleExportToPDF = () => {
-      const input = document.getElementById("quiz-result");
+      // Get user data from localStorage
+      const userData = JSON.parse(localStorage.getItem("userData")) || {};
 
-      html2canvas(input).then((canvas) => {
+      // Create a temporary div for PDF content
+      const pdfContent = document.createElement("div");
+      pdfContent.style.padding = "20px";
+      pdfContent.style.background = "white";
+      pdfContent.style.color = "black";
+
+      // Add user details
+      pdfContent.innerHTML = `
+          <div style="display: flex; align-items: center; margin-bottom: 20px;">
+            ${
+              userData.avatar
+                ? `<img src="${userData.avatar}" style="width: 80px; height: 80px; border-radius: 50%; margin-right: 20px;">`
+                : ""
+            }
+            <div>
+              <h2>Vibe Check Results</h2>
+              <p><strong>Name:</strong> ${userData.username || "Anonymous"}</p>
+              <p><strong>Age:</strong> ${userData.age || "Not specified"}</p>
+              <p><strong>Gender:</strong> ${
+                userData.gender || "Not specified"
+              }</p>
+            </div>
+          </div>
+        `;
+
+      // Clone your quiz result content
+      const quizResult = document.getElementById("quiz-result").cloneNode(true);
+
+      // Remove buttons from the PDF
+      const buttons = quizResult.querySelectorAll("button");
+      buttons.forEach((button) => button.remove());
+
+      // Add quiz result to PDF content
+      pdfContent.appendChild(quizResult);
+
+      // Add current date
+      const dateDiv = document.createElement("div");
+      dateDiv.style.marginTop = "20px";
+      dateDiv.style.fontSize = "12px";
+      dateDiv.style.color = "#666";
+      dateDiv.textContent = `Report generated on: ${new Date().toLocaleDateString()}`;
+      pdfContent.appendChild(dateDiv);
+
+      document.body.appendChild(pdfContent);
+
+      html2canvas(pdfContent).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
         const pdf = new jsPDF();
         const imgProps = pdf.getImageProperties(imgData);
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
         pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-        pdf.save("quiz-result.pdf");
+        pdf.save("vibe-check-result.pdf");
+
+        // Clean up
+        document.body.removeChild(pdfContent);
       });
     };
       

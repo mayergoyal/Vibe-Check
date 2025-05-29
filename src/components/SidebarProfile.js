@@ -24,7 +24,15 @@ const SidebarProfile = ({ username, age, gender }) => {
       avatar = "/oldman.jpg";
     } else avatar = "/oldwoman.jpg";
   }
- 
+  localStorage.setItem(
+    "userData",
+    JSON.stringify({
+      username,
+      age,
+      gender,
+      avatar, // Add this line
+    })
+  );
   const handlequizsubmit=(e)=>{
     e.preventDefault();
     
