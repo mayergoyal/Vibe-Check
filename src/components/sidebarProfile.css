@@ -1,0 +1,54 @@
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(90deg, #0097b2, #7ed957);
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem 1rem;
+    z-index: 998;
+  }
+  
+  .sidebar h3 {
+    margin-bottom: 1.2rem;
+    text-align: center;
+    font-size: 2.6rem;
+  }
+  
+  .avatar-img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 1rem;
+    border: 2px solid #ccc;
+  }
+  
+  .sidebar p {
+    font-size: 2rem;
+    margin: 0.5rem 0;
+    padding-left: 10px;
+  }
+  strong{
+    font-size: 2rem;
+  }
+  .quizbutton{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 5.30px;
+    
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .quizbutton:active{
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
